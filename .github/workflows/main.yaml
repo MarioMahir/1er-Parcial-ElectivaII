@@ -1,0 +1,27 @@
+name: Despliegue automatico a Surge
+
+"on":
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar Surge
+        run: npm install -g surge
+
+      - name: Desplegar pagina
+        run: surge . 1erparcial-mariosabala-2025-1035.surge.sh
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
